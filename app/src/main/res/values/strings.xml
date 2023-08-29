@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DgStore</string>
+    <string name="title_activity_bottom_navigation_view">BottomNavigationView</string>
+    <string name="title_home">Home</string>
+    <string name="title_bag">Bag</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+</resources>

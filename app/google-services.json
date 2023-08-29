@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "570286713736",
+    "project_id": "dgstore-feac7",
+    "storage_bucket": "dgstore-feac7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570286713736:android:7bf4b0dbdf937c4acf283d",
+        "android_client_info": {
+          "package_name": "com.dgstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570286713736-4h6riv22rbm8gkfpgd123mlqpamq4i08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz46lWyKP6lojIg964V3PMwnBBXmPY530"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570286713736-4h6riv22rbm8gkfpgd123mlqpamq4i08.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
