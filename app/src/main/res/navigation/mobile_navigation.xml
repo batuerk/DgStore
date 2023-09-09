@@ -7,31 +7,55 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.dgstore.ui.home.HomeFragment"
+        android:name="com.dgstore.ui.fragment.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_bag"
-        android:name="com.dgstore.ui.bag.BagFragment"
+        android:name="com.dgstore.ui.fragment.BagFragment"
         android:label="@string/title_bag"
-        tools:layout="@layout/fragment_bag" />
+        tools:layout="@layout/fragment_bag" >
+        <action
+            android:id="@+id/action_navigation_bag_to_navigation_payment"
+            app:destination="@+id/navigation_payment"
+            app:popUpToInclusive="true" >
+
+        </action>
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_favourite"
-        android:name="com.dgstore.ui.favorite.FavouriteFragment"
+        android:name="com.dgstore.ui.fragment.FavouriteFragment"
         android:label="@string/title_favourite"
         tools:layout="@layout/fragment_favourite" />
 
     <fragment
         android:id="@+id/navigation_shop"
-        android:name="com.dgstore.ui.shop.ShopFragment"
+        android:name="com.dgstore.ui.fragment.ShopFragment"
         android:label="@string/title_shop"
         tools:layout="@layout/fragment_shop" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.dgstore.ui.profile.ProfileFragment"
+        android:name="com.dgstore.ui.fragment.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_payment"
+        android:name="com.dgstore.ui.fragment.PaymentFragment"
+        android:label="Payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_navigation_payment_to_navigation_home"
+            app:destination="@+id/navigation_home"
+            app:popUpToInclusive="true" >
+
+        </action>
+
+    </fragment>
+
 </navigation>

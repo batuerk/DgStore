@@ -10,4 +10,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="facebook_app_id">683497339926888</string>
+    <string name="fb_login_protocol_scheme">fb683497339926888</string>
+    <string name="facebook_client_token">c812cc3b51308b322f9401f8c43ea942</string>
 </resources>

@@ -3,7 +3,7 @@ package com.dgstore.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.dgstore.Store;
+import com.dgstore.model.Product;
 import com.dgstore.retrofit.RetrofitClient;
 import com.dgstore.retrofit.StoreAPI;
 
@@ -21,18 +21,18 @@ public class ProductRepository {
         storeAPI = RetrofitClient.getRetrofitInstance().create(StoreAPI.class);
     }
 
-    public LiveData<List<Store>> storeResponse() {
-        final MutableLiveData<List<Store>> data = new MutableLiveData<>();
-        storeAPI.getProducts().enqueue(new Callback<List<Store>>() {
+    public LiveData<List<Product>> storeResponse() {
+        final MutableLiveData<List<Product>> data = new MutableLiveData<>();
+        storeAPI.getProducts().enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(Call<List<Store>> call, Response<List<Store>> response) {
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.body() != null) {
                     data.setValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Store>> call, Throwable t) {
+            public void onFailure(Call<List<Product>> call, Throwable t) {
                 data.setValue(null);
             }
         });
