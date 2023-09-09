@@ -1,5 +1,6 @@
 package com.dgstore.callbacks;
 
+import com.dgstore.model.FavoriteProduct;
 import com.dgstore.model.Product;
 
 public interface ProductInterface {
@@ -9,5 +10,5 @@ public interface ProductInterface {
 
     void removeBagItems(Product product);
 
-    void removeFavouriteItems(Product product);
+    void removeFavouriteItems(FavoriteProduct product);
 }

@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dgstore.callbacks.ProductInterface;
+import com.dgstore.database.MyDatabase;
 import com.dgstore.databinding.FragmentFavouriteBinding;
+import com.dgstore.model.FavoriteProduct;
 import com.dgstore.model.Product;
 import com.dgstore.ui.adapter.RecyclerViewFavouriteAdapter;
 import com.dgstore.ui.viewmodel.HomeViewModel;
@@ -25,6 +27,8 @@ public class FavouriteFragment extends Fragment implements ProductInterface {
     private RecyclerViewFavouriteAdapter recyclerViewFavouriteAdapter;
     private FragmentFavouriteBinding binding;
     List<Product> favoriteProductList = new ArrayList<>();
+    List<FavoriteProduct> favoriteDataList = new ArrayList<>();
+    MyDatabase myDatabase;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -40,13 +44,39 @@ public class FavouriteFragment extends Fragment implements ProductInterface {
 
         homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
 
+        myDatabase = MyDatabase.getMyDatabase(getActivity());
+
         homeViewModel.getFavouritedProducts().observe(getViewLifecycleOwner(), bagList -> {
             favoriteProductList = bagList;
-            binding.recyclerViewFavourite.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerViewFavouriteAdapter = new RecyclerViewFavouriteAdapter(bagList, this);
-            binding.recyclerViewFavourite.setAdapter(recyclerViewFavouriteAdapter);
+
+            List<Product> productItem = favoriteProductList;
+            for (Product item : productItem) {
+                FavoriteProduct existingFavoriteProduct = myDatabase.daoFavorite().getFavoriteId(item.getId());
+
+                if (existingFavoriteProduct == null) {
+                    FavoriteProduct favoriteProductItem = new FavoriteProduct();
+                    favoriteProductItem.setId(item.getId());
+                    favoriteProductItem.setCategory(item.getCategory());
+                    favoriteProductItem.setImage(item.getImage());
+                    favoriteProductItem.setPrice(item.getPrice());
+                    favoriteProductItem.setDescription(item.getDescription());
+                    favoriteProductItem.setTitle(item.getTitle());
+                    myDatabase.daoFavorite().addFavorite(favoriteProductItem);
+                    recyclerViewFavouriteAdapter.notifyDataSetChanged();
+
+                    System.out.println("--------");
+                }else {
+                    System.out.println("********");
+                }
+            }
+
             System.out.println("baglist: " + bagList);
         });
+        favoriteDataList = myDatabase.daoFavorite().allSelectedFavorite();
+        binding.recyclerViewFavourite.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewFavouriteAdapter = new RecyclerViewFavouriteAdapter(favoriteDataList, this);
+        binding.recyclerViewFavourite.setAdapter(recyclerViewFavouriteAdapter);
+
     }
 
     @Override
@@ -71,26 +101,28 @@ public class FavouriteFragment extends Fragment implements ProductInterface {
     }
 
     @Override
-    public void removeFavouriteItems(Product product) {
+    public void removeFavouriteItems(FavoriteProduct product) {
         System.out.println("removebag items çalışıyor");
 
-        for (int i = 0; i < favoriteProductList.size(); i++) {
-            System.out.println("selectedremoveproductsize: " + favoriteProductList.size());
-            if (favoriteProductList.get(i).getId() == product.getId()) {
+        for (int i = 0; i < favoriteDataList.size(); i++) {
+            System.out.println("selectedremoveproductsize: " + favoriteDataList.size());
+            if (favoriteDataList.get(i).getId() == product.getId()) {
                 System.out.println("bura");
-                int currentPiece = favoriteProductList.get(i).getPiece();
+                int currentPiece = favoriteDataList.get(i).getPiece();
                 if (currentPiece > 1) {
                     System.out.println("bura2");
-                    favoriteProductList.get(i).setPiece(currentPiece - 1);
+                    favoriteDataList.get(i).setPiece(currentPiece - 1);
                     break;
                 } else {
                     System.out.println("bura3");
-                    favoriteProductList.remove(i);
+                    favoriteDataList.remove(i);
+                    myDatabase.daoFavorite().delete(product);
+                    recyclerViewFavouriteAdapter.notifyItemRemoved(i);
                     break;
                 }
             }
         }
-        homeViewModel.setFavouritedProducts(favoriteProductList);
+//        homeViewModel.setFavouritedProducts(favoriteProductList);
 
     }
 }

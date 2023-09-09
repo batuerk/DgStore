@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dgstore.R;
 import com.dgstore.callbacks.ProductInterface;
+import com.dgstore.model.FavoriteProduct;
 import com.dgstore.model.Product;
 
 import java.text.MessageFormat;
@@ -23,11 +24,11 @@ import java.util.List;
 
 public class RecyclerViewFavouriteAdapter extends RecyclerView.Adapter<RecyclerViewFavouriteAdapter.FavouriteViewHolder> {
 
-    private List<Product> favList;
+    private List<FavoriteProduct> favList;
 
     private final ProductInterface productInterface;
 
-    public RecyclerViewFavouriteAdapter(List<Product> favList, ProductInterface productInterface) {
+    public RecyclerViewFavouriteAdapter(List<FavoriteProduct> favList, ProductInterface productInterface) {
         this.favList = favList;
         this.productInterface = productInterface;
     }
@@ -73,7 +74,7 @@ public class RecyclerViewFavouriteAdapter extends RecyclerView.Adapter<RecyclerV
             });
         }
 
-        public void bind(Product product) {
+        public void bind(FavoriteProduct product) {
             productCategoryName.setText(product.getCategory()); // Bu kısma göre ayarlayın
             productTitleName.setText(product.getTitle());
             double sumPrice = Double.parseDouble(product.getPrice()) * 10;

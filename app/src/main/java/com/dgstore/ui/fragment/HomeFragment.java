@@ -18,8 +18,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.dgstore.callbacks.ProductInterface;
 import com.dgstore.R;
 import com.dgstore.database.MyDatabase;
+import com.dgstore.model.FavoriteProduct;
 import com.dgstore.model.Product;
 import com.dgstore.databinding.FragmentHomeBinding;
+import com.dgstore.ui.adapter.RecyclerViewFavouriteAdapter;
 import com.dgstore.ui.viewmodel.HomeViewModel;
 import com.dgstore.ui.adapter.RecyclerViewHomeAdapter;
 
@@ -32,8 +34,9 @@ public class HomeFragment extends Fragment implements ProductInterface {
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
     private RecyclerViewHomeAdapter recyclerViewHomeAdapter;
+    private RecyclerViewFavouriteAdapter recyclerViewFavouriteAdapter;
     List<Product> selectedProducts = new ArrayList<>();
-    List<Product> favouritedProducts = new ArrayList<>();
+    List<Product> favoriteProducts = new ArrayList<>();
     MyDatabase myDatabase;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -114,19 +117,19 @@ public class HomeFragment extends Fragment implements ProductInterface {
     @Override
     public void addFavouriteItems(Product product) {
         boolean isProductAlreadyFavourited = false;
-        for (int i = 0; i < favouritedProducts.size(); i++) {
-            System.out.println("favouritedproductsize: " + favouritedProducts.size());
-            if (favouritedProducts.get(i).getId() == product.getId()) {
+        for (int i = 0; i < favoriteProducts.size(); i++) {
+            System.out.println("favouritedproductsize: " + favoriteProducts.size());
+            if (favoriteProducts.get(i).getId() == product.getId()) {
                 isProductAlreadyFavourited = true;
                 break; // Ürün zaten favori olarak işaretlendiği için döngüden çık
             }
         }
         if (!isProductAlreadyFavourited) {
-            favouritedProducts.add(product); // Ürünü favorilere ekle
+            favoriteProducts.add(product); // Ürünü favorilere ekle
         } else {
             Toast.makeText(getContext(), "Ürün zaten favori olarak işaretlendi.", Toast.LENGTH_SHORT).show();
         }
-        homeViewModel.setFavouritedProducts(favouritedProducts);
+        homeViewModel.setFavouritedProducts(favoriteProducts);
     }
 
     @Override
@@ -135,7 +138,7 @@ public class HomeFragment extends Fragment implements ProductInterface {
     }
 
     @Override
-    public void removeFavouriteItems(Product product) {
+    public void removeFavouriteItems(FavoriteProduct product) {
 
     }
 

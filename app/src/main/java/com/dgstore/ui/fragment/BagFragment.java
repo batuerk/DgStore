@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.dgstore.R;
 import com.dgstore.callbacks.ProductInterface;
 import com.dgstore.database.MyDatabase;
+import com.dgstore.model.FavoriteProduct;
 import com.dgstore.model.Product;
 import com.dgstore.databinding.FragmentBagBinding;
 import com.dgstore.ui.adapter.RecyclerViewBagAdapter;
@@ -178,7 +179,7 @@ public class BagFragment extends Fragment implements DefaultLifecycleObserver, P
     }
 
     @Override
-    public void removeFavouriteItems(Product product) {
+    public void removeFavouriteItems(FavoriteProduct product) {
 
     }
 
