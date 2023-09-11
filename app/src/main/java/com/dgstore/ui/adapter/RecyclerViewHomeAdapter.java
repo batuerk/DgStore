@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dgstore.callbacks.ProductInterface;
 import com.dgstore.R;
-import com.dgstore.model.FavoriteProduct;
 import com.dgstore.model.Product;
 
 import java.text.MessageFormat;
