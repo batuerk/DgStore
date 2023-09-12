@@ -46,32 +46,32 @@ public class FavouriteFragment extends Fragment implements ProductInterface {
 
         myDatabase = MyDatabase.getMyDatabase(getActivity());
 
-        homeViewModel.getFavouritedProducts().observe(getViewLifecycleOwner(), bagList -> {
-            favoriteProductList = bagList;
-
-            List<Product> productItem = favoriteProductList;
-            for (Product item : productItem) {
-                FavoriteProduct existingFavoriteProduct = myDatabase.daoFavorite().getFavoriteId(item.getId());
-
-                if (existingFavoriteProduct == null) {
-                    FavoriteProduct favoriteProductItem = new FavoriteProduct();
-                    favoriteProductItem.setId(item.getId());
-                    favoriteProductItem.setCategory(item.getCategory());
-                    favoriteProductItem.setImage(item.getImage());
-                    favoriteProductItem.setPrice(item.getPrice());
-                    favoriteProductItem.setDescription(item.getDescription());
-                    favoriteProductItem.setTitle(item.getTitle());
-                    myDatabase.daoFavorite().addFavorite(favoriteProductItem);
-                    recyclerViewFavouriteAdapter.notifyDataSetChanged();
-
-                    System.out.println("--------");
-                }else {
-                    System.out.println("********");
-                }
-            }
-
-            System.out.println("baglist: " + bagList);
-        });
+//        homeViewModel.getFavouritedProducts().observe(getViewLifecycleOwner(), bagList -> {
+//            favoriteProductList = bagList;
+//
+//            List<Product> productItem = favoriteProductList;
+//            for (Product item : productItem) {
+//                FavoriteProduct existingFavoriteProduct = myDatabase.daoFavorite().getFavoriteId(item.getId());
+//
+//                if (existingFavoriteProduct == null) {
+//                    FavoriteProduct favoriteProductItem = new FavoriteProduct();
+//                    favoriteProductItem.setId(item.getId());
+//                    favoriteProductItem.setCategory(item.getCategory());
+//                    favoriteProductItem.setImage(item.getImage());
+//                    favoriteProductItem.setPrice(item.getPrice());
+//                    favoriteProductItem.setDescription(item.getDescription());
+//                    favoriteProductItem.setTitle(item.getTitle());
+//                    myDatabase.daoFavorite().addFavorite(favoriteProductItem);
+//                    recyclerViewFavouriteAdapter.notifyDataSetChanged();
+//
+//                    System.out.println("--------");
+//                }else {
+//                    System.out.println("********");
+//                }
+//            }
+//
+//            System.out.println("baglist: " + bagList);
+//        });
         favoriteDataList = myDatabase.daoFavorite().allSelectedFavorite();
         binding.recyclerViewFavourite.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewFavouriteAdapter = new RecyclerViewFavouriteAdapter(favoriteDataList, this);

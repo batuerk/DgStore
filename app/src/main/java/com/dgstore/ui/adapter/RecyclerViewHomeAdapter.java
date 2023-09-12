@@ -56,7 +56,7 @@ public class RecyclerViewHomeAdapter extends RecyclerView.Adapter<RecyclerViewHo
         private TextView textTitle;
         private ImageView imageView;
         private AppCompatImageButton addButton,favButton;
-        Boolean newFav = false;
+        Boolean newFav = true;
 
         public RowHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,10 +72,9 @@ public class RecyclerViewHomeAdapter extends RecyclerView.Adapter<RecyclerViewHo
             favButton.setOnClickListener(view -> {
                 productInterface.addFavouriteItems(productList.get(getBindingAdapterPosition()));
                 System.out.println(productList.get(getBindingAdapterPosition()));
-                Toast.makeText(view.getContext(), "Product Added to Favorite", Toast.LENGTH_SHORT).show();
                 if (newFav) {
                     favButton.setImageResource(R.drawable.ic_favorite);
-                    newFav = true;
+                    newFav = false;
                 }else {
 
                 }
@@ -91,6 +90,11 @@ public class RecyclerViewHomeAdapter extends RecyclerView.Adapter<RecyclerViewHo
 
         public void bind(Product product) {
 //            textCategory.setText(product.getCategory());
+            if (product.getIsAddedFavorite()) {
+                favButton.setImageResource(R.drawable.ic_favorite);
+            }else {
+                favButton.setImageResource(R.drawable.ic_favorite_empty);
+            }
             textTitle.setText(product.getTitle());
             double price = Double.parseDouble(product.getPrice()) * 10;
             textPrice.setText(MessageFormat.format("Price: {0}₺", price));

@@ -6,45 +6,27 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "selectedProductData")
-public class Product {
-    @PrimaryKey(autoGenerate = true)
-    @SerializedName("id")
-    int id;
+public class OrderProduct {
 
-    @ColumnInfo(name = "title")
     @SerializedName("title")
     String title;
 
-    @ColumnInfo(name = "price")
     @SerializedName("price")
     String price;
 
-    @ColumnInfo(name = "piece")
     @SerializedName("piece")
     int piece;
 
-    @ColumnInfo(name = "category")
     @SerializedName("category")
     String category;
 
-    @ColumnInfo(name = "description")
     @SerializedName("description")
     String description;
 
-    @ColumnInfo(name = "image")
     @SerializedName("image")
     String image;
 
     boolean isAddedFavorite = false;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -104,11 +86,15 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", isAddedFavorite='" + isAddedFavorite + '\'' +
+        return "OrderProduct{" +
+                ", title='" + title + '\'' +
+                ", price='" + price + '\'' +
+                ", piece=" + piece +
+                ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", isAddedFavorite=" + isAddedFavorite +
                 '}';
     }
 }
-
 

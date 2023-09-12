@@ -71,7 +71,7 @@ public class BagFragment extends Fragment implements DefaultLifecycleObserver, P
         }
 
         if (myDatabase.daoProduct().allSelectedProduct().size() > 0) {
-            productsPrice(bagProductList);
+            productsPrice();
             setupProductView();
 
         }
@@ -111,16 +111,16 @@ public class BagFragment extends Fragment implements DefaultLifecycleObserver, P
 
     }
 
-    public void productsPrice(List<Product> productList) {
+    public void productsPrice() {
         double finalPrice = 0.0;
 
-        for (Product product : productList) {
+        for (Product product : bagProductList) {
             double price = product.getPiece() * Double.parseDouble(product.getPrice());
             double sumPrice = price * 10;
             finalPrice += sumPrice;
         }
 
-        binding.productsPriceText.setText(MessageFormat.format("Price: {0}₺", finalPrice));
+        binding.productsPriceText.setText(MessageFormat.format("Price: ₺{0}", finalPrice));
 
     }
 
@@ -185,6 +185,7 @@ public class BagFragment extends Fragment implements DefaultLifecycleObserver, P
 
     private void updateProductView() {
         // Ürünlerin durumuna göre görünümü güncelle
+        productsPrice();
         if (bagProductList.isEmpty()) {
             setupNoProducts();
         } else {

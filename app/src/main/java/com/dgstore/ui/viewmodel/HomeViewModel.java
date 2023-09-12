@@ -13,15 +13,14 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<Product>> selectedProducts = new MutableLiveData<>();
     private MutableLiveData<List<Product>> favouritedProducts = new MutableLiveData<>();
     private ProductRepository productRepository;
-    LiveData<List<Product>> listLiveData;
 
     public HomeViewModel() {
         productRepository = new ProductRepository();
-        this.listLiveData = productRepository.storeResponse();
+
     }
 
     public LiveData<List<Product>> getListLiveData() {
-        return listLiveData;
+        return productRepository.storeResponse();
     }
 
     public LiveData<List<Product>> getSelectedProducts() {

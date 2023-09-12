@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment implements ProductInterface {
     private RecyclerViewFavouriteAdapter recyclerViewFavouriteAdapter;
     List<Product> selectedProducts = new ArrayList<>();
     List<Product> favoriteProducts = new ArrayList<>();
+    List<Product> productList;
     MyDatabase myDatabase;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,11 +65,30 @@ public class HomeFragment extends Fragment implements ProductInterface {
         animationView.setAnimation(R.raw.downloading_animation); // Animasyon dosyasının adını doğru şekilde ayarlayın
 
         homeViewModel.getListLiveData().observe(requireActivity(), stores -> {
-            if (stores != null) {
-                displayProducts(stores);
-                animationView.setVisibility(View.INVISIBLE);
+            if (stores != null && !stores.isEmpty()) {
+                productList = new ArrayList<>(stores);
+                System.out.println("stores: " + stores.toString());
+                System.out.println("data: " + myDatabase.daoFavorite().allSelectedFavorite().toString());
 
+                for (FavoriteProduct favoriteProduct : myDatabase.daoFavorite().allSelectedFavorite()) {
+                    if (favoriteProduct != null) {
+                        for (int i = 0 ; i < productList.size() ; i ++) {
+                            if (productList.get(i).getId() == favoriteProduct.getId()) {
+                                productList.get(i).setIsAddedFavorite(true);
+                                System.out.println("?????????");
+
+                            }
+
+                        }
+
+
+                    }
+                }
+                    displayProducts(productList);
+            }else {
+                Toast.makeText(requireContext(),"ürün listesi çekilemedi",Toast.LENGTH_SHORT).show();
             }
+            animationView.setVisibility(View.INVISIBLE);
         });
 
     }
@@ -126,10 +146,30 @@ public class HomeFragment extends Fragment implements ProductInterface {
         }
         if (!isProductAlreadyFavourited) {
             favoriteProducts.add(product); // Ürünü favorilere ekle
+            Toast.makeText(getContext(), "Product Added to Favorite", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(getContext(), "Ürün zaten favori olarak işaretlendi.", Toast.LENGTH_SHORT).show();
         }
-        homeViewModel.setFavouritedProducts(favoriteProducts);
+
+        for (Product item : favoriteProducts) {
+            FavoriteProduct existingFavoriteProduct = myDatabase.daoFavorite().getFavoriteId(item.getId());
+
+            if (existingFavoriteProduct == null) {
+                FavoriteProduct favoriteProductItem = new FavoriteProduct();
+                favoriteProductItem.setId(item.getId());
+                favoriteProductItem.setCategory(item.getCategory());
+                favoriteProductItem.setImage(item.getImage());
+                favoriteProductItem.setPrice(item.getPrice());
+                favoriteProductItem.setDescription(item.getDescription());
+                favoriteProductItem.setTitle(item.getTitle());
+                myDatabase.daoFavorite().addFavorite(favoriteProductItem);
+
+                System.out.println("--------");
+            }else {
+                System.out.println("********");
+            }
+        }
     }
 
     @Override

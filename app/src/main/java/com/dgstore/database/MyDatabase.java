@@ -7,10 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.dgstore.model.FavoriteProduct;
+import com.dgstore.model.OrderHistory;
+import com.dgstore.model.OrderProduct;
 import com.dgstore.model.Product;
 import com.dgstore.model.User;
 
-@Database(entities = {User.class, Product.class, FavoriteProduct.class}, version = 3)
+@Database(entities = {User.class, Product.class, FavoriteProduct.class, OrderHistory.class }, version = 4)
 
 public abstract class MyDatabase extends RoomDatabase {
 
@@ -19,6 +21,7 @@ public abstract class MyDatabase extends RoomDatabase {
     public abstract DaoUser daoUser();
     public abstract DaoProduct daoProduct();
     public abstract DaoFavorite daoFavorite();
+    public abstract DaoOrders daoOrders();
 
     public static MyDatabase getMyDatabase(Context context){
         if (INSTANCE == null){
